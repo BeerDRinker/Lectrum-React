@@ -1,8 +1,33 @@
 .statusBar {
   display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 42px;
   background-color: #4267b2;
   border-bottom: #29487d;
   margin-bottom: 20px;
+
+  & button {
+    display: block;
+    position: relative;
+    height: 25px;
+    width: 120px;
+    background: transparent;
+    border: 1px solid var(--paletteColor10);
+    border-radius: 3px;
+    text-align: right;
+    color: var(--paletteColor10);
+    font-size: 12px;
+    padding-right: 10px;
+    cursor: pointer;
+
+    & img {
+      position: absolute;
+      height: 18px;
+      width: 18px;
+      left: 8px;
+      top: 2px;
+    }
+  }
 }
