@@ -11,8 +11,8 @@ class Post extends Component {
             <section className = { Styles.post }>
                 <img alt = '' src = { avatar } />
                 <a href = '#'>Lisa Simpson</a>
-                <time>Today</time>
-                <p>{moment().format('MMMM D h:mm:ss a')}</p>
+                <p>Howady!</p>
+                <time>{moment().format('MMMM D h:mm:ss a')}</time>
             </section>
         );
     }
