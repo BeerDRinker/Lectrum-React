@@ -11,15 +11,6 @@ import { getUniqueID, delay } from '../../instruments';
 
 class Feed extends Component {
 
-    constructor () {
-        super();
-
-        this._createPost = this._createPost.bind(this);
-        this._setPostFetchingState = this._setPostFetchingState.bind(this);
-        this._likePost = this._likePost.bind(this);
-        this._deletePost = this._deletePost.bind(this);
-    }
-
     state = {
         posts: [
             {
@@ -39,13 +30,13 @@ class Feed extends Component {
         isPostFetching: false,
     }
 
-    _setPostFetchingState (state) {
+    _setPostFetchingState = (state) => {
         this.setState({
             isPostFetching: state,
         });
     }
 
-    async _createPost (comment) {
+    _createPost = async (comment) => {
 
         this._setPostFetchingState(true);
 
@@ -64,7 +55,7 @@ class Feed extends Component {
         }));
     }
 
-    async _likePost (id) {
+    _likePost = async (id) => {
         const { currentUserFirstName, currentUserLastName } = this.props;
 
         this._setPostFetchingState(true);
@@ -94,7 +85,7 @@ class Feed extends Component {
         });
     }
 
-    _deletePost (id) {
+    _deletePost = (id) => {
         const newPosts = this.state.posts.filter((post) => post.id !== id);
 
         this.setState({
