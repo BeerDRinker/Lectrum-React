@@ -8,6 +8,7 @@ import Post from '../Post';
 import Spinner from '../Spinner';
 import Catcher from '../Catcher';
 import Postman from '../Postman';
+import Counter from '../Counter';
 
 import Styles from './styles.m.css';
 import { getUniqueID, delay } from '../../instruments';
@@ -213,6 +214,7 @@ class Feed extends Component {
                   onEntering = { this._animatePostManEnter }>
                   <Postman />
               </Transition>
+              <Counter count = { postJSX.length } />
               <TransitionGroup>
                   { postJSX }
               </TransitionGroup>
