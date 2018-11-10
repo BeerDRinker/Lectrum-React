@@ -5,39 +5,62 @@ import moment from 'moment';
 import Styles from './styles.m.css';
 
 import Like from '../Like';
-import { Consumer } from '../HOC/withProfile';
+import { withProfile } from 'components/HOC/withProfile';
 
+@withProfile
 class Post extends Component {
-    static propTypes = {
-        _deletePost: func.isRequired,
-        _likePost:   func.isRequired,
-        comment:     string.isRequired,
-        created:     number.isRequired,
-        id:          string.isRequired,
-        likes:       array.isRequired,
-    };
+  static propTypes = {
+      _likePost:   func.isRequired,
+      _removePost: func.isRequired,
+      comment:     string.isRequired,
+      created:     number.isRequired,
+      id:          string.isRequired,
+      likes:       array.isRequired,
+  };
 
-    render () {
+  _removePost = () => {
+      const { _removePost, id } = this.props;
 
-        const { comment, created, _likePost, id, likes, _deletePost } = this.props;
+      _removePost(id);
+  }
 
-        return (
-            <Consumer>
-                {(context) => (
-                    <section className = { Styles.post }>
-                        <span className = { Styles.cross } onClick = { () => _deletePost(id) } />
-                        <img alt = '' src = { context.avatar } />
-                        <a href = '#'>{`${context.currentUserFirstName} ${context.currentUserLastName}`} </a>
-                        <time>
-                            {moment.unix(created).format('MMMM D h:mm:ss a')}
-                        </time>
-                        <p>{comment}</p>
-                        <Like _likePost = { _likePost } id = { id } likes = { likes } { ...context } />
-                    </section>
-                )}
-            </Consumer>
-        );
-    }
+  _getCross = () => {
+      const { firstName, lastName, currentUserFirstName, currentUserLastName } = this.props;
+
+      return `${firstName} ${lastName}` === `${currentUserFirstName} ${currentUserLastName}`
+          ? <span className = { Styles.cross } onClick = { this._removePost } /> : null;
+  }
+
+  render () {
+
+      const { comment,
+          created,
+          _likePost,
+          id,
+          likes,
+          _removePost,
+          avatar,
+          firstName,
+          lastName,
+          currentUserFirstName,
+          currentUserLastName,
+      } = this.props;
+
+      const cross = this._getCross();
+
+      return (
+          <section className = { Styles.post }>
+              { cross }
+              <img alt = '' src = { avatar } />
+              <a href = '#'>{`${firstName} ${lastName}`} </a>
+              <time>
+                  {moment.unix(created).format('MMMM D h:mm:ss a')}
+              </time>
+              <p>{comment}</p>
+              <Like _likePost = { _likePost } id = { id } likes = { likes } />
+          </section>
+      );
+  }
 }
 
 export default Post;
